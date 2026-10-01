@@ -12,7 +12,7 @@ export default function App() {
   const load = async (name = city) => { setLoading(true); setError(''); try { const response = await fetch(`${apiBaseUrl}/api/weather?city=${encodeURIComponent(name)}`); const json = await response.json(); if (!response.ok) throw new Error(json.message); setData(json); } catch (e) { setError(e.message); } finally { setLoading(false); } };
   useEffect(() => { load('Paris'); }, []);
   const submit = (e) => { e.preventDefault(); if (city.trim()) load(); };
-  if (loading && !data) return <div className="state">Loading the sky…</div>;
+  if (!data) return <div className="state">{error || 'Loading the sky…'}</div>;
   const { current } = data.weather; const daily = data.weather.daily;
   return <main>
     <nav><a className="logo" href="#top"><i /> SKYLINE</a><span>YOUR WEATHER, BEAUTIFULLY SIMPLE</span></nav>
