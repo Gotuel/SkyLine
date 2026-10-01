@@ -4,6 +4,8 @@ import express from 'express';
 const app = express();
 app.use(cors());
 
+app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+
 const weatherFields = 'temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,is_day';
 const dailyFields = 'weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset';
 

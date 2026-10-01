@@ -5,10 +5,11 @@ const icons = { 0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️', 45: '🌫️',
 const labels = { 0: 'Clear sky', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast', 45: 'Foggy', 48: 'Foggy', 51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle', 61: 'Light rain', 63: 'Rainy', 65: 'Heavy rain', 71: 'Light snow', 73: 'Snowy', 75: 'Heavy snow', 80: 'Showers', 81: 'Rain showers', 82: 'Heavy showers', 95: 'Thunderstorms' };
 const iconFor = (code) => icons[code] || '🌤️';
 const labelFor = (code) => labels[code] || 'Partly cloudy';
+const apiBaseUrl = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
 export default function App() {
   const [city, setCity] = useState('Paris'); const [data, setData] = useState(null); const [error, setError] = useState(''); const [loading, setLoading] = useState(true);
-  const load = async (name = city) => { setLoading(true); setError(''); try { const response = await fetch(`/api/weather?city=${encodeURIComponent(name)}`); const json = await response.json(); if (!response.ok) throw new Error(json.message); setData(json); } catch (e) { setError(e.message); } finally { setLoading(false); } };
+  const load = async (name = city) => { setLoading(true); setError(''); try { const response = await fetch(`${apiBaseUrl}/api/weather?city=${encodeURIComponent(name)}`); const json = await response.json(); if (!response.ok) throw new Error(json.message); setData(json); } catch (e) { setError(e.message); } finally { setLoading(false); } };
   useEffect(() => { load('Paris'); }, []);
   const submit = (e) => { e.preventDefault(); if (city.trim()) load(); };
   if (loading && !data) return <div className="state">Loading the sky…</div>;

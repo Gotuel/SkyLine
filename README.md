@@ -24,3 +24,21 @@ npm run dev
 ```
 
 Open `http://localhost:5173`.
+
+## Deploy on Render
+
+Deploy the API first as a **Web Service**:
+
+- Root directory: `server`
+- Build command: `npm install`
+- Start command: `npm start`
+- Health check path: `/health`
+
+Then deploy the React client as a **Static Site**:
+
+- Root directory: `client`
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Environment variable: set `VITE_API_URL` to the public URL of the API service, for example `https://skyline-weather-api.onrender.com`
+
+Render rebuilds the client when this environment variable changes. The variable is optional locally because Vite proxies `/api` to the local Express server.
