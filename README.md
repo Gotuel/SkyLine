@@ -27,18 +27,10 @@ Open `http://localhost:5173`.
 
 ## Deploy on Render
 
-Deploy the API first as a **Web Service**:
+The repository includes a [`render.yaml`](./render.yaml) Blueprint that creates both Render services and connects the client to the API automatically:
 
-- Root directory: `server`
-- Build command: `npm install`
-- Start command: `npm start`
-- Health check path: `/health`
+1. Push this repository and `render.yaml` to your Git provider.
+2. In the [Render Dashboard](https://dashboard.render.com), choose **New > Blueprint** and connect this repository and branch.
+3. Review and deploy the Blueprint. It creates the API Web Service and the client Static Site; the client receives the API hostname through `VITE_API_URL`.
 
-Then deploy the React client as a **Static Site**:
-
-- Root directory: `client`
-- Build command: `npm run build`
-- Publish directory: `dist`
-- Environment variable: set `VITE_API_URL` to the public URL of the API service, for example `https://skyline-weather-api.onrender.com`
-
-Render rebuilds the client when this environment variable changes. The variable is optional locally because Vite proxies `/api` to the local Express server.
+The API runs on Node.js 22.16.0 and exposes `/health` as its health check. No API key is required. The client variable is optional locally because Vite proxies `/api` to the local Express server.
