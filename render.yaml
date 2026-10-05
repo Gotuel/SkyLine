@@ -19,7 +19,4 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: skyline-weather-api
-          property: url
+        value: https://skyline-weather-api.onrender.com
